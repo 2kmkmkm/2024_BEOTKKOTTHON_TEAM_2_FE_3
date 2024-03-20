@@ -1,0 +1,43 @@
+@import url("../font/font.css");
+
+.mainsearchbar {
+    width: 100%;
+    border-radius: 1.25rem;
+    border-style: none;
+    height: 25px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Pretendard-Medium";
+}
+
+input::-webkit-input-placeholder {
+    color: #d1d1d1;
+}
+ 
+.category {
+    width: calc(100% - 30px);
+    margin: 0px 15px;
+    height: 380px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+td {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-family: "Pretendard-Medium";
+    table-layout: fixed;
+}
+
+.categorybutton {
+    text-decoration: none;
+    color: black;
+}
