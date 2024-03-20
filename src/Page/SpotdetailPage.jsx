@@ -9,6 +9,7 @@ import include from "../Img/include.svg";
 import review from "../Img/review.svg";
 import share from "../Img/share.svg";
 import heart from "../Img/heart.svg";
+import contact from "../Img/contact.svg";
 import styles from "../css/spotdetailpage.module.css";
 
 const Header = styled.div`
@@ -26,7 +27,7 @@ const SpotImage = styled.div`
   position: relative;
   display: flex;
   width: 100%;
-  height: 280px;
+  height: 300px;
   background: #c4c4c4;
 `;
 
@@ -107,10 +108,6 @@ const SpotInfo2 = () => {
   );
 };
 
-const Copy = styled.button``;
-
-const Map = styled.button``;
-
 const Address = () => {
   return (
     <>
@@ -123,8 +120,43 @@ const Address = () => {
         <div className={styles.address_detail}>
           서울특별시 구름구 미르미동 123-2
         </div>
-        <Copy>복사</Copy>
-        <Map>지도</Map>
+        <Link className={styles.copy} to="">
+          복사
+        </Link>
+        <Link className={styles.mapbutton} to="">
+          <div className={styles.map}>지도보기</div>
+        </Link>
+      </div>
+    </>
+  );
+};
+
+const Contact = () => {
+  return (
+    <>
+      <div className={styles.contact}>
+        <img className={styles.contact_img} src={contact} alt="contact" />
+        <div className={styles.contact_detail}>02-1234-1234</div>
+        <Link to="" className={styles.call}>
+          전화걸기
+        </Link>
+      </div>
+    </>
+  );
+};
+
+const Hours = () => {
+  return (
+    <>
+      <div className={styles.hours}>
+        <div className={styles.current}>
+          <div className={styles.date}>03.23 (토)</div>
+          <div className={styles.status}>영업중</div>
+        </div>
+        <div className={styles.opening}>
+          <div className={styles.open_close}>영업시간 : 16:00 ~ 3:00</div>
+          <div className={styles.off}>매주 월 휴무</div>
+        </div>
       </div>
     </>
   );
@@ -162,6 +194,9 @@ const SpotdetailPage = () => {
       <div className={styles.gap2} />
       <Address />
       <div className={styles.gap2} />
+      <Contact />
+      <div className={styles.gap2} />
+      <Hours />
     </>
   );
 };

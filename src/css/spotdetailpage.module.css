@@ -69,7 +69,7 @@
 
 .gap2 {
     background-color: #c4c4c4;
-    height: 1px;
+    height: 1.2px;
     width: 100%;
 }
 
@@ -88,7 +88,7 @@ table {
 
 tr, td {
     table-layout: fixed;
-    height: 60px;
+    height: 70px;
     font-size: 10px;
     color: #949494;
 }
@@ -109,9 +109,124 @@ tr, td {
 }
 
 .address {
-    height: 70px;
+    height: 65px;
     font-size: 15px;
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+.location_black {
+    width: 14px;
+    margin-left: 20px;
+}
+
+.address_detail {
+    margin-left: 8px;
+    font-family: "Pretendard-Medium";
+    color: #808080;
+    font-size: 13px;
+}
+
+.mapbutton {
+    margin-top:2px;
+    margin-left: auto;
+    margin-right: 20px;
+    display: flex;
+    background-color: #57AEFF;
+    width: 50px;
+    height: 20px;
+    border-radius: 1rem;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.map {
+    font-size: 10px;
+    color: white;
+    font-family: "Pretendard-Medium";
+}
+
+.copy {
+    margin-left: 10px;
+    padding-top: 1.7px;
+    font-size: 10px;
+    color: #57AEFF;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    font-family: "Pretendard-Medium";
+}
+
+.contact {
+    display: flex;
+    height: 55px;
+    align-items: center;
+}
+
+.contact_img {
+    margin-left: 20px;
+    width: 15px;
+}
+
+.contact_detail {
+    margin-left: 10px;
+    font-family: "Pretendard-Medium";
+    color: #808080;
+    font-size: 15px;
+}
+
+.call {
+    font-family: "Pretendard-Medium";
+    text-decoration: none;
+    color:#808080;
+    margin-left: auto;
+    margin-right:20px;
+    font-size: 12px;
+}
+
+.hours {
+    display: flex;
+    align-items: center;
+    font-family: "Pretendard-Medium";
+    color: #808080;
+    font-size: 12px;  
+    margin-top: 20px;
+}
+
+.current {
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+    justify-content: center;
+}
+
+.date {
+
+}
+
+.status {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    color: #FE6A38;
+}
+
+.opening{
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.open_close {
+
+}
+
+.off{
+    margin-top: 5px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
