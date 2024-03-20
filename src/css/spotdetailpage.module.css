@@ -1,0 +1,117 @@
+@import url("../font/font.css");
+
+.location {
+    font-family: "Pretendard-Light";
+    background-color: #424242;
+    border-radius: 1rem;
+    color: white;
+    width: 60px;
+    height: 20px;
+    margin: 15px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 10px;
+}
+
+.spotinfo1 {
+    padding: 20px 30px 20px 30px;
+}
+
+.categoryname {
+    color: #949494;
+    padding-left: 2px;
+    padding-bottom: 5px;
+    font-size: 12px;
+    font-family: "Pretendard-Regular";
+}
+
+.spotname {
+    font-family: "Pretendard-Bold";
+    font-size: 20px;
+    padding: 0px;
+    padding-bottom: 8px;
+}
+
+.grade {
+    display: flex;
+    margin: 0;
+}
+
+.catfoot {
+    padding: 0 1.5px 0 0;
+    padding-top: 3.8px;
+    width: 20px;
+}
+
+.review {
+    display: flex;
+    align-items: center;
+}
+
+.grade_num {
+    font-family: "Pretendard-Bold";
+    margin-left: 10px;
+}
+
+.review_num {
+    margin-left: 35px;
+    color: #949494;
+    font-size: 12px;
+    font-family: "Pretendard-Regular";
+}
+
+.gap1 {
+    background-color: #c4c4c4;
+    height: 4px;
+    width: 100%;
+}
+
+.gap2 {
+    background-color: #c4c4c4;
+    height: 1px;
+    width: 100%;
+}
+
+.spotinfo2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table { 
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 10px 15px;
+}
+
+tr, td {
+    table-layout: fixed;
+    height: 60px;
+    font-size: 10px;
+    color: #949494;
+}
+
+.spotinfo2_text {
+    padding-top: 5px;
+}
+
+.spotinfo2_img {
+    width: 25px;
+    height: 25px;
+}
+
+.link {
+    font-family: "Pretendard-Medium";
+    text-decoration: none;
+    color: #949494;
+}
+
+.address {
+    height: 70px;
+    font-size: 15px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
