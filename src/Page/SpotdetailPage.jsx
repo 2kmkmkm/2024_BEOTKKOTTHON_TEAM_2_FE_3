@@ -56,7 +56,9 @@ const SpotInfo1 = () => {
             <img className={styles.catfoot} src={catfoot} alt="catfoot" />
           </div>
           <div className={styles.grade_num}>5.0</div>
-          <div className={styles.review_num}>156개의 리뷰 &gt;</div>
+          <Link to="/review" className={styles.review_num}>
+            156개의 리뷰 &gt;
+          </Link>
         </div>
       </div>
     </>

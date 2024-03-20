@@ -57,6 +57,7 @@
 .review_num {
     margin-left: 35px;
     color: #949494;
+    text-decoration: none;
     font-size: 12px;
     font-family: "Pretendard-Regular";
 }
