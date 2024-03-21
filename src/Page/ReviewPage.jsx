@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import styles from "../css/reviewpage.module.css";
 import { Link } from "react-router-dom";
@@ -204,6 +204,45 @@ const ReviewDetail = () => {
         <ReviewDate />
       </div>
       <ReviewContent />
+    </>
+  );
+};
+
+const Modal = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const modalBackground = useRef();
+
+  return (
+    <>
+      <div className={styles.btn_wrapper}>
+        <button
+          className={styles.modal_open_btn}
+          onClick={() => setModalOpen(true)}
+        >
+          모달 열기
+        </button>
+      </div>
+      {modalOpen && (
+        <div
+          className={styles.modal_container}
+          ref={modalBackground}
+          onClick={(e) => {
+            if (e.target === modalBackground.current) {
+              setModalOpen(false);
+            }
+          }}
+        >
+          <div className={styles.modal_content}>
+            <p>리액트로 모달 구현하기</p>
+            <button
+              className={styles.modal_close_btn}
+              onClick={() => setModalOpen(false)}
+            >
+              모달 닫기
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

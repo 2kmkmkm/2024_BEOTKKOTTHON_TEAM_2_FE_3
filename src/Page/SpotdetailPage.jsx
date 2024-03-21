@@ -82,7 +82,7 @@ const SpotInfo2 = () => {
               </Link>
             </td>
             <td>
-              <Link className={styles.link} to="">
+              <Link to="/reviewwrite" className={styles.link}>
                 <img
                   className={styles.spotinfo2_img}
                   src={review}
