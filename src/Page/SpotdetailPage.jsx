@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import back from "../Img/back.svg";
@@ -66,20 +66,86 @@ const SpotInfo1 = () => {
 };
 
 const SpotInfo2 = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
+  const modalBackground = useRef();
+  const handleButtonClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleRadioChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    // 여기에 선택된 라디오 버튼 값(selectedOption)을 이용한 작업을 수행할 수 있습니다.
+    console.log("Selected option:", selectedOption);
+    handleCloseModal();
+  };
+
+  const IncludeModal = () => {
+    return (
+      <>
+        <div>
+          <button onClick={handleButtonClick} className={styles.include}>
+            <img className={styles.spotinfo2_img} src={include} alt="include" />
+            <div className={styles.spotinfo2_text}>먹킷리스트 담기</div>
+          </button>
+          {modalOpen && (
+            <div
+              className={styles.modal_container}
+              ref={modalBackground}
+              onClick={(e) => {
+                if (e.target === modalBackground.current) {
+                  setModalOpen(false);
+                }
+              }}
+            >
+              <div className={styles.modal_content}>
+                <h2>선택</h2>
+                <div className={styles.form}>
+                  <form onSubmit={handleSubmit}>
+                    <label className={styles.radiobutton}>
+                      <input
+                        type="radio"
+                        value="option1"
+                        checked={selectedOption === "option1"}
+                        onChange={handleRadioChange}
+                      />
+                      개인 먹킷리스트
+                    </label>
+                    <label className={styles.radiobutton}>
+                      <input
+                        type="radio"
+                        value="option2"
+                        checked={selectedOption === "option2"}
+                        onChange={handleRadioChange}
+                      />
+                      그룹 먹킷 리스트
+                    </label>
+                    <button type="submit">확인</button>
+                    <button onClick={handleCloseModal}>취소</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
       <div className={styles.spotinfo2}>
         <table>
           <tr>
             <td>
-              <Link className={styles.link} to="">
-                <img
-                  className={styles.spotinfo2_img}
-                  src={include}
-                  alt="include"
-                />
-                <div className={styles.spotinfo2_text}>먹킷리스트 담기</div>
-              </Link>
+              <IncludeModal />
             </td>
             <td>
               <Link to="/reviewwrite" className={styles.link}>
