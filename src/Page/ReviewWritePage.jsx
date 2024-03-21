@@ -6,7 +6,6 @@ import back from "../Img/back.svg";
 import catfoot_off from "../Img/catfoot_off.svg";
 import mukat from "../Img/mukat.svg";
 import point from "../Img/point.svg";
-import close from "../Img/close.svg";
 
 const Header = styled.div`
   justify-content: center;
@@ -36,19 +35,6 @@ const SpotName = () => {
   return (
     <>
       <Spot>뭉게뭉게 구름</Spot>
-    </>
-  );
-};
-
-const Text = () => {
-  return (
-    <>
-      <div className={styles.text}>
-        <div>평가를 완료하시면 최대 100포인트가 적립됩니다.</div>
-        <div>
-          (별점만 선택하면 50포인트, 방문 후기도 작성하면 100포인트 지급)
-        </div>
-      </div>
     </>
   );
 };
@@ -121,7 +107,7 @@ const ReviewText = () => {
           <div className={styles.gap3}></div>
           <textarea
             className={styles.textarea}
-            placeholder="음식, 서비스, 분위기, 위생상태 등의 방문 경험을 적어주세요. (30자 이상 작성 시 포인트 적립)"
+            placeholder="음식, 서비스, 분위기, 위생상태 등의 방문 경험을 적어주세요."
           />
           <div className={styles.wordcount}>( 0 / 1000자 )</div>
         </TextBox>
@@ -165,15 +151,10 @@ const Submit = () => {
           }}
         >
           <div className={styles.modal_content}>
-            <div className={styles.modalheader}>
-              <h2>적립 완료</h2>
-            </div>
             <div className={styles.cat}>
-              <img className={styles.img} src={point} alt="point" />
-              <div></div>
               <img className={styles.img} src={mukat} alt="mukat" />
             </div>
-            <div className={styles.reward}>50포인트가 적립되었습니다!</div>
+            <div className={styles.register}>리뷰가 등록되었습니다</div>
             <div className={styles.button_select}>
               <button
                 className={styles.button_ok}
@@ -203,7 +184,6 @@ const ReviewWritePage = () => {
         <Back></Back>
         <Back></Back>
       </Header>
-      <Text />
       <Grade />
       <div className={styles.gap2} />
       <SelectPicture />
