@@ -1,0 +1,135 @@
+@import url("../font/font.css");
+
+.gap1 {
+    background-color: #D3D3D3;
+    height: 4px;
+    width: 100%;
+}
+
+.gap2 {
+    background-color: #D3D3D3;
+    height: 1.2px;
+    width: 100%;
+}
+
+.review_num {
+    font-family: "Pretendard-Bold";
+
+}
+
+.average {
+    display: flex;
+    padding: 20px 0 10px 22px;
+}
+
+.sort {
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: "Pretendard-Light";
+    font-size: 12px;
+    display: flex;
+}
+
+.gradegroup {
+    margin-left: 20px;
+}
+
+.catfoot1 {
+    margin-top: 3px;
+    width: 35px;
+    margin-right: 3px;
+}
+
+.catfoot2 {
+    margin-top: 3px;
+    width: 20px;
+    margin-right: 3px;
+}
+
+.gradenum1 {
+    font-family: "Pretendard-Bold";
+    margin-left: 10px;
+    font-size: 25px;
+}
+
+.gradenum2 {
+    font-family: "Pretendard-Medium";
+    margin-left: 8px;
+    font-size: 15px;
+}
+
+.grade1 {
+    align-items: center;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.grade2 {
+    align-items: center;
+    display: flex;
+}
+
+.username {
+    font-size: 15px;
+    margin-left: 10px;
+    font-family: "Pretendard-Bold";
+}
+
+.profile {
+    margin: 20px 0 5px 20px;
+    align-items: center;
+    display: flex;
+}
+
+.smallreview {
+    display: flex;
+    align-items: center;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.review_date {
+    display: flex;
+    font-family: "Pretendard-Light";
+    color: #949494;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.profile_thumb {
+    display: flex;
+    align-items: center;
+}
+
+.thumb {
+    display: flex;
+    margin-left: auto;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.thumb_img {
+    padding-top: 5px;
+    width: 25px;
+}
+
+.thumbnum {
+    font-family: "Pretendard-Light";
+    font-size: 15px;
+    color: #949494;
+}
+
+.review_content {
+    margin: 10px 0 0 20px;
+    width: calc(100% - 40px);
+    font-family: "Pretendard-Medium";
+}
+
