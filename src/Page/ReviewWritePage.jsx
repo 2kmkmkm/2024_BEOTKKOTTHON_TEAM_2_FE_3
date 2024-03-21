@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import styles from "../css/reviewwritepage.module.css";
 import back from "../Img/back.svg";
 import catfoot_off from "../Img/catfoot_off.svg";
+import mukat from "../Img/mukat.svg";
+import point from "../Img/point.svg";
+import close from "../Img/close.svg";
 
 const Header = styled.div`
   justify-content: center;
@@ -127,26 +130,62 @@ const ReviewText = () => {
   );
 };
 
-const SubmitButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 30px 20px 0 20px;
-  width: calc(100% - 40px);
-  background: #ff865d;
-  border: none;
-  height: 60px;
-  border-radius: 1.5rem;
-`;
-
 const Submit = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const modalBackground = useRef();
+  const handleButtonClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleSubmit = () => {
+    handleCloseModal();
+  };
+
   return (
     <>
-      <div>
-        <SubmitButton>
-          <div className={styles.select}>등록하기</div>
-        </SubmitButton>
-      </div>
+      <button
+        onClick={handleButtonClick}
+        className={styles.button_submit}
+        type="submit"
+      >
+        <div className={styles.select}>등록하기</div>
+      </button>
+      {modalOpen && (
+        <div
+          className={styles.modal_container}
+          ref={modalBackground}
+          onClick={(e) => {
+            if (e.target === modalBackground.current) {
+              setModalOpen(false);
+            }
+          }}
+        >
+          <div className={styles.modal_content}>
+            <div className={styles.modalheader}>
+              <h2>적립 완료</h2>
+            </div>
+            <div className={styles.cat}>
+              <img className={styles.img} src={point} alt="point" />
+              <div></div>
+              <img className={styles.img} src={mukat} alt="mukat" />
+            </div>
+            <div className={styles.reward}>50포인트가 적립되었습니다!</div>
+            <div className={styles.button_select}>
+              <button
+                className={styles.button_ok}
+                onClick={handleSubmit}
+                type="submit"
+              >
+                확인
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -223,16 +223,11 @@ tr, td {
     align-items: center;
     justify-content: center;
 }
+
 .btn_wrapper {
     display: flex;
     justify-content: center;
     margin-top: 5rem;
-}
-
-.modal_open-button,
-.modal_close_btn {
-    cursor: pointer;
-    margin-left: auto;
 }
 
 .modal_container {
@@ -244,11 +239,12 @@ tr, td {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 12px;
+    font-size: 14px;
     background: rgba(0, 0, 0, 0.5);
 }
 
 .modal_content {
+    border-radius: 1.5rem;;
     background-color: #ffffff;
     width: 250px;
     height: 150px;
@@ -264,13 +260,38 @@ tr, td {
 }
 
 .radiobutton {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
     display: block;
     padding: 5px;
 }
 
-.form {
-    display: flex;
+h2 {
+    font-size: 18px;
+    margin-top: 8px;
 }
+
+.button_select {
+    margin-top: 8px;
+}
+
+.button_cancel {
+    color: white;
+    border: none;
+    background-color: #D3D3D3;
+    font-family: "Pretendard-Medium";
+    height: 30px;
+    width: 50px;
+    margin: 5px;
+    border-radius: 0.8rem;
+}
+
+.button_ok {
+    border-radius: 0.8rem;
+    width: 50px;
+    margin: 5px;
+    color: white;
+    border: none;
+    background-color: #FE6A38;
+    font-family: "Pretendard-Medium";
+    height: 30px;
+}
+
