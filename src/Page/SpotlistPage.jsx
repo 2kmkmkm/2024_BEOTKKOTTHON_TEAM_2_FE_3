@@ -4,7 +4,7 @@ import back from "../Img/back.svg";
 import point from "../Img/point.svg";
 import location from "../Img/location_white.svg";
 import catfoot from "../Img/catfoot.svg";
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Link, useParams } from "react-router-dom";
 import styles from "../css/spotlistpage.module.css";
 import "../font/font.css";
 
@@ -152,6 +152,8 @@ const SpotlistPage = () => {
     );
   };
 
+  const { categoryId } = useParams();
+
   return (
     <>
       <Header>
@@ -160,7 +162,7 @@ const SpotlistPage = () => {
             <img src={back} alt="back" />
           </Link>
         </Back>
-        <CategoryName>전체</CategoryName>
+        <CategoryName>{categoryId}</CategoryName>
         <Point>
           <img src={point} width="25px" alt="point" />
         </Point>

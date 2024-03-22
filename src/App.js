@@ -12,8 +12,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/spotlist" element={<SpotlistPage />} />
-        <Route path="/spotdetail" element={<SpotdetailPage />} />
+        <Route path="/spotlist/:categoryId" element={<SpotlistPage />} />
+        <Route path="/spotdetail/" element={<SpotdetailPage />} />
         <Route path="/review" element={<ReviewPage />} />
         <Route path="/reviewwrite" element={<ReviewWritePage />} />
       </Routes>

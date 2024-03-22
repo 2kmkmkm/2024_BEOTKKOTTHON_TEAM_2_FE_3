@@ -15,6 +15,8 @@ import western from "../Img/양식.svg";
 import japanese from "../Img/일식.svg";
 import bunsik from "../Img/분식.svg";
 import etc from "../Img/기타.svg";
+import axios from "axios";
+import { useNavigate, useParams, useHistory } from "react-router-dom";
 
 const Logo = styled.a`
   padding: 10px;
@@ -85,13 +87,20 @@ const CategoryImage = styled.div`
 `;
 
 const Category = () => {
+  const [categoryId, setCategoryId] = useState();
+
   return (
     <>
       <table className="category">
         <tbody>
           <tr>
             <td height="20px">
-              <Link className="categorybutton" to="/spotlist">
+              <Link
+                value="all"
+                className="categorybutton"
+                to={`/spotlist/${categoryId}`}
+                onClick={() => setCategoryId("all")}
+              >
                 <CategoryImage>
                   <img width="45px" src={all} alt="all" />
                 </CategoryImage>
@@ -99,7 +108,11 @@ const Category = () => {
               </Link>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <Link
+                className="categorybutton"
+                to={`/spotlist/${categoryId}`}
+                onClick={() => setCategoryId("bar")}
+              >
                 <CategoryImage>
                   <img width="35px" src={bar} alt="bar" />
                 </CategoryImage>
@@ -107,13 +120,17 @@ const Category = () => {
               </Link>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <Link
+                className="categorybutton"
+                to={`/spotlist/${categoryId}`}
+                onClick={() => setCategoryId("care_dessert")}
+              >
                 <CategoryImage>
                   <img
                     width="40px"
                     style={{ marginLeft: "2px" }}
                     src={cafe_dessert}
-                    alt="cafe/dessert"
+                    alt="cafe_dessert"
                   />
                 </CategoryImage>
               </Link>
@@ -122,7 +139,11 @@ const Category = () => {
           </tr>
           <tr>
             <td height="20px">
-              <Link className="categorybutton" to="/spotlist">
+              <Link
+                className="categorybutton"
+                to={`/spotlist/${categoryId}`}
+                onClick={() => setCategoryId("korean")}
+              >
                 <CategoryImage>
                   <img width="40px" src={korean} alt="korean" />
                 </CategoryImage>
@@ -130,7 +151,11 @@ const Category = () => {
               <div>한식</div>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <Link
+                className="categorybutton"
+                to={`/spotlist/${categoryId}`}
+                onClick={() => setCategoryId("chinese")}
+              >
                 <CategoryImage>
                   <img width="100px" src={chinese} alt="chinese" />
                 </CategoryImage>
@@ -138,7 +163,11 @@ const Category = () => {
               <div>중식</div>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <Link
+                className="categorybutton"
+                to={`/spotlist/${categoryId}`}
+                onClick={() => setCategoryId("western")}
+              >
                 <CategoryImage>
                   <img width="40px" src={western} alt="western" />
                 </CategoryImage>
@@ -148,7 +177,11 @@ const Category = () => {
           </tr>
           <tr>
             <td height="20px">
-              <Link className="categorybutton" to="/spotlist">
+              <Link
+                className="categorybutton"
+                to={`/spotlist/${categoryId}`}
+                onClick={() => setCategoryId("japanese")}
+              >
                 <CategoryImage>
                   <img width="40px" src={japanese} alt="japanese" />
                 </CategoryImage>
@@ -156,7 +189,11 @@ const Category = () => {
               <div>일식</div>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <Link
+                className="categorybutton"
+                to={`/spotlist/${categoryId}`}
+                onClick={() => setCategoryId("bunsik")}
+              >
                 <CategoryImage>
                   <img width="20px" src={bunsik} alt="bunsik" />
                 </CategoryImage>
@@ -164,7 +201,11 @@ const Category = () => {
               <div>분식</div>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <Link
+                className="categorybutton"
+                to={`/spotlist/${categoryId}`}
+                onClick={() => setCategoryId("etc")}
+              >
                 <CategoryImage>
                   <img width="45px" src={etc} alt="etc" />
                 </CategoryImage>

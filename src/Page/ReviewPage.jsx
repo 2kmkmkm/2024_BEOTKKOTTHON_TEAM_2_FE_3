@@ -51,29 +51,26 @@ const ReviewNum = () => {
 };
 
 const SelectBox = styled.div`
-  margin-left: 10px;
+  margin-left: 20px;
   font-family: "Pretendard-Medium";
   position: relative;
   width: 80px;
   height: 10px;
-  padding: 8px;
-  border-radius: 12px;
+  padding: 8px 10px 8px 10px;
+  border-radius: 2rem;
   background-color: #fd9775;
+  text-align: center;
+  justify-content: center;
   cursor: pointer;
-  &::before {
-    content: "⌵";
-    position: absolute;
-    top: 1px;
-    right: 8px;
-    color: white;
-    font-size: 20px;
-  }
+  display: flex;
 `;
 
 const Label = styled.label`
+  display: flex;
   font-size: 12px;
-  margin-left: 4px;
   text-align: center;
+  align-items: center;
+  justify-content: center;
   color: white;
 `;
 
@@ -81,20 +78,21 @@ const SelectOptions = styled.ul`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   position: absolute;
   list-style: none;
-  top: 18px;
+  margin-top: 18px;
   left: 0;
   width: 100%;
   padding: 0;
   border-radius: 8px;
   background-color: white;
   color: black;
+  max-height: ${(props) => (props.show ? "none" : "0")};
 `;
 
 const Option = styled.li`
   font-size: 12px;
   padding: 6px 8px;
   &:hover {
-    background-color: #c4c4c4;
+    background-color: #eaeaea;
   }
 `;
 
@@ -102,19 +100,31 @@ const Select = () => {
   const [currentValue, setCurrentValue] = useState("최신순");
   const [showOptions, setShowOptions] = useState(false);
 
-  const handleOnChangeSelectValue = (e) => {
-    const { innerText } = e.target;
-    setCurrentValue(innerText);
+  const handleToggleOptions = () => {
+    setShowOptions((prev) => !prev);
+  };
+
+  const handleOnChangeSelectValue = (value) => {
+    setCurrentValue(value);
+    setShowOptions(false);
   };
 
   return (
-    <SelectBox onClick={() => setShowOptions((prev) => !prev)}>
+    <SelectBox onClick={handleToggleOptions}>
       <Label>{currentValue}</Label>
       <SelectOptions show={showOptions}>
-        <Option onClick={handleOnChangeSelectValue}>최신순</Option>
-        <Option onClick={handleOnChangeSelectValue}>추천순</Option>
-        <Option onClick={handleOnChangeSelectValue}>별점 높은순</Option>
-        <Option onClick={handleOnChangeSelectValue}>별점 낮은순</Option>
+        <Option onClick={() => handleOnChangeSelectValue("최신순")}>
+          최신순
+        </Option>
+        <Option onClick={() => handleOnChangeSelectValue("추천순")}>
+          추천순
+        </Option>
+        <Option onClick={() => handleOnChangeSelectValue("별점 높은순")}>
+          별점 높은순
+        </Option>
+        <Option onClick={() => handleOnChangeSelectValue("별점 낮은순")}>
+          별점 낮은순
+        </Option>
       </SelectOptions>
     </SelectBox>
   );
