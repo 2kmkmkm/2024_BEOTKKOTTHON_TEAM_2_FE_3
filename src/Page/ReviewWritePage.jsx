@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import styles from "../css/reviewwritepage.module.css";
 import back from "../Img/back.svg";
 import catfoot_off from "../Img/catfoot_off.svg";
+import catfoot_on from "../Img/catfoot.svg";
 import mukat from "../Img/mukat.svg";
-import point from "../Img/point.svg";
 
 const Header = styled.div`
   justify-content: center;
@@ -39,23 +39,44 @@ const SpotName = () => {
   );
 };
 
+const Catfoot = () => {
+  const array = [0, 1, 2, 3, 4];
+  const [score, setScore] = useState([false, false, false, false, false]);
+  const [selectedCount, setSelectedCount] = useState(0);
+
+  const handleScore = (index) => {
+    const updatedScore = score.map((_, i) => i <= index);
+    setScore(updatedScore);
+    const count = updatedScore.filter((selected) => selected).length; // 선택된 catfoot 개수 계산
+    setSelectedCount(count);
+  };
+
+  return (
+    <>
+      <div>
+        {array.map((el, index) => (
+          <img
+            className={styles.catfoot_img}
+            key={index}
+            src={score[index] ? catfoot_on : catfoot_off} // 별의 활성화 여부에 따라 이미지 변경
+            onClick={() => handleScore(index)} // 클릭 시 해당 별까지의 점수 설정
+            alt={`star-${index + 1}`}
+          />
+        ))}
+        <div className={styles.grade2}>
+          <span className={styles.grade_num}>{selectedCount}점</span>
+          <span className={styles.grade_req}>(필수)</span>
+        </div>
+      </div>
+    </>
+  );
+};
+
 const Grade = () => {
   return (
     <>
       <div className={styles.grade}>
-        <div className={styles.grade1}>
-          <div className={styles.gradegroup}>
-            <img className={styles.catfoot} src={catfoot_off} alt="catfoot" />
-            <img className={styles.catfoot} src={catfoot_off} alt="catfoot" />
-            <img className={styles.catfoot} src={catfoot_off} alt="catfoot" />
-            <img className={styles.catfoot} src={catfoot_off} alt="catfoot" />
-            <img className={styles.catfoot} src={catfoot_off} alt="catfoot" />
-          </div>
-        </div>
-      </div>
-      <div className={styles.grade2}>
-        <div className={styles.grade_num}>0점</div>
-        <div className={styles.grade_req}>(필수)</div>
+        <Catfoot />
       </div>
     </>
   );
@@ -73,14 +94,38 @@ const Picture = styled.div`
 `;
 
 const SelectPicture = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  // 이미지를 선택했을 때 호출되는 함수
+  const handleImageChange = (e) => {
+    const imageFile = e.target.files[0]; // 선택한 파일
+    setSelectedImage(imageFile); // 선택한 파일을 상태에 저장
+  };
+
+  // 이미지 미리보기를 표시하는 함수
+  const renderPreview = () => {
+    if (selectedImage) {
+      return <img src={URL.createObjectURL(selectedImage)} alt="preview" />;
+    } else {
+      return;
+    }
+  };
+
   return (
     <>
       <div className={styles.picture}>
-        <Picture>
-          <div>
-            <div className={styles.plus}>+</div>
-            <div className={styles.select}>사진 선택</div>
-          </div>
+        <Picture className={styles.select_pic}>
+          <label htmlFor="file">
+            <div>사진 선택</div>
+          </label>
+          <input
+            id="file"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className={styles.input_pic}
+          />
+          {renderPreview()}
         </Picture>
       </div>
     </>
@@ -96,6 +141,11 @@ const TextBox = styled.div`
 `;
 
 const ReviewText = () => {
+  const [textCount, setTextCount] = useState(0);
+  const onTextHandler = (e) => {
+    setTextCount(e.target.value.length);
+  };
+
   return (
     <>
       <div className={styles.textbox}>
@@ -106,10 +156,15 @@ const ReviewText = () => {
           </div>
           <div className={styles.gap3}></div>
           <textarea
+            maxLength="1000"
+            onChange={onTextHandler}
             className={styles.textarea}
             placeholder="음식, 서비스, 분위기, 위생상태 등의 방문 경험을 적어주세요."
           />
-          <div className={styles.wordcount}>( 0 / 1000자 )</div>
+          <div className={styles.wordcount}>
+            <span>( {textCount} </span>
+            <span>/ 1000자 )</span>
+          </div>
         </TextBox>
       </div>
     </>
@@ -184,7 +239,9 @@ const ReviewWritePage = () => {
         <Back></Back>
         <Back></Back>
       </Header>
-      <Grade />
+      <div className={styles.grade}>
+        <Grade />
+      </div>
       <div className={styles.gap2} />
       <SelectPicture />
       <ReviewText />

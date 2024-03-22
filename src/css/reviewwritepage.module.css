@@ -14,12 +14,8 @@
     width: 50px;
 }
 
-.gradegroup {
-    align-items: center;
-    justify-content: center;
-}
-
 .grade {
+    margin: 10px 0 10px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,8 +30,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-right: 25px;
-    margin-bottom: 15px;
+    margin-top: 3px;
 }
 
 .grade_num {
@@ -105,11 +100,16 @@
     width: calc(100% - 21px);
     height: 95px;
     border: none;
-    color: #949494;
+    color: black;
     padding: 10px;
-    font-family: "Pretendard-Light";
+    font-family: "Pretendard-Meidum";
     resize: none;
     outline: none;
+    font-size: 12px;
+    placeholder {
+        color: #949494;      
+        font-family: "Pretendard-Light";
+    }
 }
 
 .wordcount {
@@ -180,4 +180,19 @@
 
 .img {
     margin-top: 18px;
+}
+
+.input_pic {
+    display: none;
+}
+
+.select_pic {
+    background-color: none;
+    font-family: "Pretendard-Medium";
+    color: white;
+    font-size: 20px;
+}
+
+.catfoot_img {
+    width: 50px;
 }

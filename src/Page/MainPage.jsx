@@ -21,6 +21,7 @@ import { useNavigate, useParams, useHistory } from "react-router-dom";
 const Logo = styled.a`
   padding: 10px;
   margin-right: auto;
+  margin-left: 10px;
 `;
 
 const Header = styled.div`
@@ -87,7 +88,11 @@ const CategoryImage = styled.div`
 `;
 
 const Category = () => {
-  const [categoryId, setCategoryId] = useState();
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (categoryId) => {
+    navigate(`/spotlist/${categoryId}`);
+  };
 
   return (
     <>
@@ -95,35 +100,31 @@ const Category = () => {
         <tbody>
           <tr>
             <td height="20px">
-              <Link
-                value="all"
+              <div
                 className="categorybutton"
-                to={`/spotlist/${categoryId}`}
-                onClick={() => setCategoryId("all")}
+                onClick={() => handleCategoryClick("all")}
               >
                 <CategoryImage>
                   <img width="45px" src={all} alt="all" />
                 </CategoryImage>
                 <div>전체</div>
-              </Link>
+              </div>
             </td>
             <td>
-              <Link
+              <div
                 className="categorybutton"
-                to={`/spotlist/${categoryId}`}
-                onClick={() => setCategoryId("bar")}
+                onClick={() => handleCategoryClick("bar")}
               >
                 <CategoryImage>
                   <img width="35px" src={bar} alt="bar" />
                 </CategoryImage>
                 <div>술집</div>
-              </Link>
+              </div>
             </td>
             <td>
-              <Link
+              <div
                 className="categorybutton"
-                to={`/spotlist/${categoryId}`}
-                onClick={() => setCategoryId("care_dessert")}
+                onClick={() => handleCategoryClick("cafe_dessert")}
               >
                 <CategoryImage>
                   <img
@@ -133,84 +134,78 @@ const Category = () => {
                     alt="cafe_dessert"
                   />
                 </CategoryImage>
-              </Link>
-              <div>카페/디저트</div>
+                <div>카페/디저트</div>
+              </div>
             </td>
           </tr>
           <tr>
             <td height="20px">
-              <Link
+              <div
                 className="categorybutton"
-                to={`/spotlist/${categoryId}`}
-                onClick={() => setCategoryId("korean")}
+                onClick={() => handleCategoryClick("korean")}
               >
                 <CategoryImage>
                   <img width="40px" src={korean} alt="korean" />
                 </CategoryImage>
-              </Link>
-              <div>한식</div>
+                <div>한식</div>
+              </div>
             </td>
             <td>
-              <Link
+              <div
                 className="categorybutton"
-                to={`/spotlist/${categoryId}`}
-                onClick={() => setCategoryId("chinese")}
+                onClick={() => handleCategoryClick("chinese")}
               >
                 <CategoryImage>
                   <img width="100px" src={chinese} alt="chinese" />
                 </CategoryImage>
-              </Link>
-              <div>중식</div>
+                <div>중식</div>
+              </div>
             </td>
             <td>
-              <Link
+              <div
                 className="categorybutton"
-                to={`/spotlist/${categoryId}`}
-                onClick={() => setCategoryId("western")}
+                onClick={() => handleCategoryClick("western")}
               >
                 <CategoryImage>
                   <img width="40px" src={western} alt="western" />
                 </CategoryImage>
-              </Link>
-              <div>양식</div>
+                <div>양식</div>
+              </div>
             </td>
           </tr>
           <tr>
             <td height="20px">
-              <Link
+              <div
                 className="categorybutton"
-                to={`/spotlist/${categoryId}`}
-                onClick={() => setCategoryId("japanese")}
+                onClick={() => handleCategoryClick("japanese")}
               >
                 <CategoryImage>
                   <img width="40px" src={japanese} alt="japanese" />
                 </CategoryImage>
-              </Link>
-              <div>일식</div>
+                <div>일식</div>
+              </div>
             </td>
             <td>
-              <Link
+              <div
                 className="categorybutton"
-                to={`/spotlist/${categoryId}`}
-                onClick={() => setCategoryId("bunsik")}
+                onClick={() => handleCategoryClick("bunsik")}
               >
                 <CategoryImage>
                   <img width="20px" src={bunsik} alt="bunsik" />
                 </CategoryImage>
-              </Link>
-              <div>분식</div>
+                <div>분식</div>
+              </div>
             </td>
             <td>
-              <Link
+              <div
                 className="categorybutton"
-                to={`/spotlist/${categoryId}`}
-                onClick={() => setCategoryId("etc")}
+                onClick={() => handleCategoryClick("etc")}
               >
                 <CategoryImage>
                   <img width="45px" src={etc} alt="etc" />
                 </CategoryImage>
-              </Link>
-              <div>기타</div>
+                <div>기타</div>
+              </div>
             </td>
           </tr>
         </tbody>

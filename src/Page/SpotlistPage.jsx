@@ -152,8 +152,22 @@ const SpotlistPage = () => {
     );
   };
 
-  const { categoryId } = useParams();
+  const categories = [
+    { id: "all", name: "전체" },
+    { id: "bar", name: "술집" },
+    { id: "cafe_dessert", name: "카페/디저트" },
+    { id: "korean", name: "한식" },
+    { id: "chinese", name: "중식" },
+    { id: "western", name: "양식" },
+    { id: "japanese", name: "일식" },
+    { id: "bunsik", name: "분식" },
+    { id: "etc", name: "기타" },
+  ];
 
+  const { categoryId } = useParams();
+  const categoryName = categories.find(
+    (category) => category.id === categoryId
+  )?.name;
   return (
     <>
       <Header>
@@ -162,7 +176,7 @@ const SpotlistPage = () => {
             <img src={back} alt="back" />
           </Link>
         </Back>
-        <CategoryName>{categoryId}</CategoryName>
+        <CategoryName>{categoryName}</CategoryName>
         <Point>
           <img src={point} width="25px" alt="point" />
         </Point>

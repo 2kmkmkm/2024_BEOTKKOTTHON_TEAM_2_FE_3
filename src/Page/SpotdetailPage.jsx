@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import back from "../Img/back.svg";
 import location_white from "../Img/location_white.svg";
@@ -90,10 +90,10 @@ const SpotInfo2 = () => {
   const IncludeModal = () => {
     return (
       <>
-        <button onClick={handleButtonClick} className={styles.include}>
+        <div onClick={handleButtonClick} className={styles.include}>
           <img className={styles.spotinfo2_img} src={include} alt="include" />
           <div className={styles.spotinfo2_text}>먹킷리스트 담기</div>
-        </button>
+        </div>
         {modalOpen && (
           <div
             className={styles.modal_container}
@@ -105,7 +105,7 @@ const SpotInfo2 = () => {
             }}
           >
             <div className={styles.modal_content}>
-              <h2>선택</h2>
+              <h2>먹킷리스트 목록</h2>
               <form onSubmit={handleSubmit}>
                 <label className={styles.radiobutton}>
                   <input
@@ -218,23 +218,6 @@ const Contact = () => {
   );
 };
 
-const Hours = () => {
-  return (
-    <>
-      <div className={styles.hours}>
-        <div className={styles.current}>
-          <div className={styles.date}>03.23 (토)</div>
-          <div className={styles.status}>영업중</div>
-        </div>
-        <div className={styles.opening}>
-          <div className={styles.open_close}>영업시간 : 16:00 ~ 3:00</div>
-          <div className={styles.off}>매주 월 휴무</div>
-        </div>
-      </div>
-    </>
-  );
-};
-
 const Location = () => {
   return (
     <>
@@ -246,15 +229,27 @@ const Location = () => {
   );
 };
 
+const Detail = () => {
+  return (
+    <>
+      <div>링크 첨부</div>
+    </>
+  );
+};
 const SpotdetailPage = () => {
+  const navigate = useNavigate();
+  const onClickBack = () => {
+    return navigate(-1);
+  };
+
   return (
     <>
       <SpotImage>
         <Header>
           <Back>
-            <Link to="/spotlist">
+            <div onClick={onClickBack}>
               <img src={back} alt="back" />
-            </Link>
+            </div>
           </Back>
         </Header>
         <Wrapper>
@@ -269,7 +264,7 @@ const SpotdetailPage = () => {
       <div className={styles.gap2} />
       <Contact />
       <div className={styles.gap2} />
-      <Hours />
+      <Detail />
     </>
   );
 };
