@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import styles from "../css/reviewpage.module.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import back from "../Img/back.svg";
 import catfoot from "../Img/catfoot.svg";
 import orange from "../Img/orange.svg";
 import thumb_on from "../Img/thumb_on.svg";
 import thumb_off from "../Img/thumb_off.svg";
 import spotimage from "../Img/spotimage.svg";
+import axios from "axios";
 import "../font/font.css";
 
 const Header = styled.div`
@@ -265,10 +266,27 @@ const ReviewDetail = () => {
 };
 
 const ReviewPage = () => {
+  const { spotId } = useParams();
+  const [review, setReview] = useState({});
+
+  useEffect(() => {
+    const fetchReview = async () => {
+      try {
+        const response = await axios.get();
+
+        setReview(response.data.data);
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchReview();
+  }, [spotId]);
+
   return (
     <>
       <Header>
-        <Link to="/spotdetail">
+        <Link to={`/spotdetail/${spotId}`}>
           <Back>
             <img src={back} alt="back" />
           </Back>

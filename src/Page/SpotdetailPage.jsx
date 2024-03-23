@@ -87,7 +87,7 @@ const Spot = ({
             {color.map((color, index) =>
               color ? (
                 <img
-                  width="20px"
+                  width="25px"
                   className={styles.catfoot_img}
                   key={index}
                   src={catfoot} // filledCount에 따라 이미지 변경
@@ -95,7 +95,7 @@ const Spot = ({
                 />
               ) : (
                 <img
-                  width="20px"
+                  width="25px"
                   className={styles.catfoot_img}
                   key={index}
                   src={catfoot_off} // filledCount에 따라 이미지 변경

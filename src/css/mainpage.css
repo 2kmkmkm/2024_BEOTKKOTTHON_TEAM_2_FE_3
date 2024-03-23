@@ -1,7 +1,7 @@
 @import url("../font/font.css");
 
 .mainsearchbar {
-    width: 100%;
+    width: calc(100% - 10px);
     border-radius: 1.25rem;
     border-style: none;
     height: 25px;
@@ -40,4 +40,5 @@ td {
 .categorybutton {
     text-decoration: none;
     color: #707070;
+    font-size: 13px;
 }

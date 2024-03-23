@@ -99,7 +99,7 @@ const SpotInfo = ({ spotId, spotImage, spotName, spotAddress, spotGrade }) => {
 
   return (
     <>
-      <Link className={styles.link} to={`/spotdetail/${spotId}`}>
+      <Link className={styles.list} to={`/spotdetail/${spotId}`}>
         <SpotImageDiv />
         <SpotDetailDiv />
       </Link>
@@ -107,7 +107,7 @@ const SpotInfo = ({ spotId, spotImage, spotName, spotAddress, spotGrade }) => {
   );
 };
 
-const SpotlistPage = () => {
+const SearchSpotlistPage = () => {
   const { category } = useParams();
 
   // 카테고리별 검색
@@ -233,4 +233,4 @@ const SpotlistPage = () => {
   );
 };
 
-export default SpotlistPage;
+export default SearchSpotlistPage;
