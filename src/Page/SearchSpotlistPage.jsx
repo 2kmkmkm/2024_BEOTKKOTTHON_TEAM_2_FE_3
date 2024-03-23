@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useDispatch } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import back from "../Img/back.svg";
 import point from "../Img/point.svg";
@@ -99,7 +99,7 @@ const SpotInfo = ({ spotId, spotImage, spotName, spotAddress, spotGrade }) => {
 
   return (
     <>
-      <Link className={styles.link} to={`/spotdetail/${spotId}`}>
+      <Link className={styles.list} to={`/spotdetail/${spotId}`}>
         <SpotImageDiv />
         <SpotDetailDiv />
       </Link>
@@ -107,75 +107,18 @@ const SpotInfo = ({ spotId, spotImage, spotName, spotAddress, spotGrade }) => {
   );
 };
 
-const SpotlistPage = () => {
-  const { category } = useParams();
-
-  // 카테고리별 검색
-  const SearchBar = () => {
-    const [search, setSearch] = useState("");
-    const onChange = (e) => {
-      setSearch(e.target.value);
-    };
-
-    const [spots, setSpots] = useState([]);
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const filteredSpots = spots.filter((spot) => {
-        return spot.restaurant_name
-          .toLowerCase()
-          .includes(search.toLowerCase());
-      });
-      setSpots(filteredSpots);
-    };
-
-    // 해당 카테고리 맛집 API 받아와서 검색
-    useEffect(() => {
-      const fetchSpots = async () => {
-        try {
-          const response = await axios.get(
-            `http://43.202.65.80:3000/api/restaurant`
-          );
-          setSpots(response.data);
-        } catch (e) {
-          console.log(e);
-        }
-      };
-      fetchSpots();
-    }, []);
-
-    // 검색어와 일치하는 맛집만 필터링
-
-    return (
-      <div onSubmit={handleSubmit}>
-        <input
-          className={styles.searchbar}
-          type="search"
-          value={search}
-          onChange={onChange}
-          placeholder="음식점을 입력해주세요"
-        />
-      </div>
-    );
-  };
-
+const SearchSpotlistPage = () => {
+  // 이전에 "맛집 이름"으로 검색한 맛집 리스트
   const SpotlistItem = () => {
-    const { category } = useParams();
+    const { searched } = useParams();
     const [spotList, setSpotList] = useState([]);
 
     useEffect(() => {
       const fetchSpots = async () => {
-        let response;
         try {
-          if (category === "전체") {
-            response = await axios.get(
-              `http://43.202.65.80:3000/api/restaurant`
-            );
-          } else {
-            response = await axios.get(
-              `http://43.202.65.80:3000/api/restaurant/category/${category}`
-            );
-          }
+          const response = await axios.get(
+            `http://43.202.65.80:3000/api/restaurant/search/${searched}`
+          );
           console.log(response.data.body);
           setSpotList(response.data.body);
         } catch (e) {
@@ -183,14 +126,14 @@ const SpotlistPage = () => {
         }
       };
       fetchSpots();
-    }, [category]);
+    }, []);
 
     return (
       <>
         {spotList &&
           spotList.map((spot) => (
             <SpotInfo
-              key={spot.restaurant_id}
+              key={spot.restaurant_name}
               spotId={spot.restaurant_id}
               spotImage={spot.spotImage}
               spotName={spot.restaurant_name}
@@ -207,6 +150,49 @@ const SpotlistPage = () => {
     return navigate(-1);
   };
 
+  // spotlist에서 "맛집 이름"으로 검색할 검색창
+  const SearchBar = () => {
+    const [search, setSearch] = useState("");
+    const onChange = (e) => {
+      setSearch(e.target.value);
+    };
+
+    const handleSubmit = async (e) => {
+      try {
+        const response = await axios.get(
+          `http://43.202.65.80:3000/api/restaurant/search/${search}`
+        );
+        if (response.data) {
+          console.log(response.data);
+          navigate(`/spotlist/search/${search}`);
+        } else {
+          console.log(e);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    const handleOnKeyDown = (e) => {
+      if (e.key === "Enter") {
+        handleSubmit(e);
+      }
+    };
+
+    return (
+      <div>
+        <input
+          onKeyDown={handleOnKeyDown}
+          className={styles.searchbar}
+          type="search"
+          value={search}
+          onChange={onChange}
+          placeholder="음식점을 입력해주세요"
+        />
+      </div>
+    );
+  };
+
   return (
     <>
       <Header>
@@ -215,7 +201,7 @@ const SpotlistPage = () => {
             <img src={back} alt="back" />
           </div>
         </Back>
-        <CategoryName>{category}</CategoryName>
+        <CategoryName>전체</CategoryName>
         <Point>
           <img src={point} width="25px" alt="point" />
         </Point>
@@ -228,4 +214,4 @@ const SpotlistPage = () => {
   );
 };
 
-export default SpotlistPage;
+export default SearchSpotlistPage;

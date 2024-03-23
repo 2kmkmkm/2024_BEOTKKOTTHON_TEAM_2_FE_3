@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "../css/reviewwritepage.module.css";
 import back from "../Img/back.svg";
 import catfoot_off from "../Img/catfoot_off.svg";
 import catfoot_on from "../Img/catfoot.svg";
 import mukat from "../Img/mukat.svg";
+import axios from "axios";
 
 const Header = styled.div`
   justify-content: center;
@@ -60,7 +61,7 @@ const Catfoot = () => {
             key={index}
             src={score[index] ? catfoot_on : catfoot_off} // 별의 활성화 여부에 따라 이미지 변경
             onClick={() => handleScore(index)} // 클릭 시 해당 별까지의 점수 설정
-            alt={`star-${index + 1}`}
+            alt="catfoot"
           />
         ))}
         <div className={styles.grade2}>
@@ -171,66 +172,71 @@ const ReviewText = () => {
   );
 };
 
-const Submit = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const modalBackground = useRef();
-  const handleButtonClick = () => {
-    setModalOpen(true);
-  };
+const ReviewWritePage = () => {
+  const { spotId } = useParams();
+  const Submit = () => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const modalBackground = useRef();
+    const handleButtonClick = () => {
+      setModalOpen(true);
+    };
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
+    const handleCloseModal = () => {
+      setModalOpen(false);
+    };
 
-  const handleSubmit = () => {
-    handleCloseModal();
-  };
+    const handleSubmit = () => {
+      handleCloseModal();
+    };
 
-  return (
-    <>
-      <button
-        onClick={handleButtonClick}
-        className={styles.button_submit}
-        type="submit"
-      >
-        <div className={styles.select}>등록하기</div>
-      </button>
-      {modalOpen && (
-        <div
-          className={styles.modal_container}
-          ref={modalBackground}
-          onClick={(e) => {
-            if (e.target === modalBackground.current) {
-              setModalOpen(false);
-            }
-          }}
+    return (
+      <>
+        <button
+          onClick={handleButtonClick}
+          className={styles.button_submit}
+          type="submit"
         >
-          <div className={styles.modal_content}>
-            <div className={styles.cat}>
-              <img className={styles.img} src={mukat} alt="mukat" />
-            </div>
-            <div className={styles.register}>리뷰가 등록되었습니다</div>
-            <div className={styles.button_select}>
-              <button
-                className={styles.button_ok}
-                onClick={handleSubmit}
-                type="submit"
-              >
-                확인
-              </button>
+          <div className={styles.select}>등록하기</div>
+        </button>
+        {modalOpen && (
+          <div
+            className={styles.modal_container}
+            ref={modalBackground}
+            onClick={(e) => {
+              if (e.target === modalBackground.current) {
+                setModalOpen(false);
+              }
+            }}
+          >
+            <div className={styles.modal_content}>
+              <div className={styles.cat}>
+                <img className={styles.img} src={mukat} alt="mukat" />
+              </div>
+              <div className={styles.register}>리뷰가 등록되었습니다</div>
+              <div className={styles.button_select}>
+                <button
+                  className={styles.button_ok}
+                  onClick={handleSubmit}
+                  type="submit"
+                >
+                  확인
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </>
-  );
-};
+        )}
+      </>
+    );
+  };
 
-const ReviewWritePage = () => {
+  const registerReview = async () => {
+    return await axios.post(``, {});
+  };
+
   return (
     <>
       <Header>
-        <Link to="/spotdetail">
+        <Link to={`/spotdetail/${spotId}`}>
           <Back>
             <img src={back} alt="back" />
           </Back>

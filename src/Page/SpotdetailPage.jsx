@@ -5,6 +5,7 @@ import back from "../Img/back.svg";
 import location_white from "../Img/location_white.svg";
 import location_black from "../Img/location_black.svg";
 import catfoot from "../Img/catfoot.svg";
+import catfoot_off from "../Img/catfoot_off.svg";
 import include from "../Img/include.svg";
 import review from "../Img/review.svg";
 import share from "../Img/share.svg";
@@ -53,39 +54,78 @@ const Spot = ({
   spotContact,
   spotLink,
 }) => {
-  const [spots, setSpots] = useState({});
-
-  useEffect(() => {
-    const fetchSpot = async () => {
-      try {
-        const response = await axios.get(
-          `http://43.203.208.221:8079/api/restaurant/details/${spotId}`
-        );
-        setSpots(response.data.data);
-        console.log(response);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchSpot();
-  }, []);
-
   const SpotInfo1 = () => {
+    const navigate = useNavigate();
+    const onClickBack = () => {
+      return navigate(-1);
+    };
+
+    const Catfoot = ({ spotGrade }) => {
+      const filledCount = Math.floor(spotGrade);
+      let color = [];
+      if (filledCount >= 1) {
+        color = [true, false, false, false, false];
+      }
+      if (filledCount >= 2) {
+        color = [true, true, false, false, false];
+      }
+      if (filledCount >= 3) {
+        color = [true, true, true, false, false];
+      }
+      if (filledCount >= 4) {
+        color = [true, true, true, true, false];
+      }
+      if (filledCount >= 5) {
+        color = [true, true, true, true, true];
+      }
+
+      console.log(color);
+
+      return (
+        <>
+          <div>
+            {color.map((color, index) =>
+              color ? (
+                <img
+                  width="25px"
+                  className={styles.catfoot_img}
+                  key={index}
+                  src={catfoot} // filledCount에 따라 이미지 변경
+                  alt="catfoot"
+                />
+              ) : (
+                <img
+                  width="25px"
+                  className={styles.catfoot_img}
+                  key={index}
+                  src={catfoot_off} // filledCount에 따라 이미지 변경
+                  alt="catfoot"
+                />
+              )
+            )}
+          </div>
+        </>
+      );
+    };
+
     return (
       <>
         <SpotImage>
           <img src={spotImage} alt="spotimage" />
+          <Header>
+            <Back>
+              <div onClick={onClickBack}>
+                <img src={back} alt="back" />
+              </div>
+            </Back>
+          </Header>
         </SpotImage>
         <div className={styles.spotinfo1}>
           <div className={styles.categoryname}>{spotCategory}</div>
           <div className={styles.spotname}>{spotName}</div>
           <div className={styles.review}>
             <div className={styles.grade}>
-              <img className={styles.catfoot} src={catfoot} alt="catfoot" />
-              <img className={styles.catfoot} src={catfoot} alt="catfoot" />
-              <img className={styles.catfoot} src={catfoot} alt="catfoot" />
-              <img className={styles.catfoot} src={catfoot} alt="catfoot" />
-              <img className={styles.catfoot} src={catfoot} alt="catfoot" />
+              <Catfoot spotGrade={spotGrade} />
             </div>
             <div className={styles.grade_num}>{spotGrade}</div>
             <Link to={`/review/${spotId}`} className={styles.review_num}>
@@ -119,6 +159,7 @@ const Spot = ({
       handleCloseModal();
     };
 
+    /* 
     const [mukatlist, setMukatlist] = useState([]);
 
     useEffect(() => {
@@ -134,7 +175,7 @@ const Spot = ({
         }
       };
       fetchMukatlist();
-    }, [mukatlist]);
+    }, [mukatlist]); */
 
     const IncludeModal = () => {
       return (
@@ -273,35 +314,38 @@ const Spot = ({
     );
   };
 
-  const Detail = () => {};
-
-  <>
-    {spotId &&
-      spotId.map((spot) => (
-        <div key={spot.spotId}>
-          <SpotInfo1
-            key={spot.spotId}
-            spotImage={spot.spotImage}
-            spotName={spot.spotName}
-            spotCategory={spot.spotCategory}
-            spotAddress={spot.spotAddress}
-            spotContact={spot.spotContact}
-            spotReviewnum={spot.ReviewNum}
-            spotGrade={spot.spotGrade}
-          />
-          <div>
-            <div className={styles.gap1} />
-            <SpotInfo2 />
-            <div className={styles.gap2} />
-            <Address />
-            <div className={styles.gap2} />
-            <Contact />
-            <div className={styles.gap2} />
-            <Detail />
-          </div>
+  const Detail = () => {
+    return (
+      <>
+        <div className={styles.detail}>
+          <Link
+            className={styles.linkDetail}
+            to={`https://www.example.com/restaurant1`}
+          >
+            {spotLink}
+          </Link>
         </div>
-      ))}
-  </>;
+      </>
+    );
+  };
+
+  return (
+    <>
+      <div>
+        <SpotInfo1 />
+        <div>
+          <div className={styles.gap1} />
+          <SpotInfo2 />
+          <div className={styles.gap2} />
+          <Address />
+          <div className={styles.gap2} />
+          <Contact />
+          <div className={styles.gap2} />
+          <Detail />
+        </div>
+      </div>
+    </>
+  );
 };
 
 /*
@@ -318,11 +362,6 @@ const Location = () => {
  */
 
 const SpotdetailPage = () => {
-  const navigate = useNavigate();
-  const onClickBack = () => {
-    return navigate(-1);
-  };
-
   const { spotId } = useParams();
   const [spotDetail, setSpotDetail] = useState({});
 
@@ -330,9 +369,9 @@ const SpotdetailPage = () => {
     const fetchSpotDetail = async () => {
       try {
         const response = await axios.get(
-          `http://43.203.208.221:8079api/restaurant/${spotId}`
+          `http://43.202.65.80:3000/api/restaurant/details/${spotId}`
         );
-        setSpotDetail(response.data.data);
+        setSpotDetail(response.data.body);
         console.log(response);
       } catch (e) {
         console.log(e);
@@ -343,25 +382,18 @@ const SpotdetailPage = () => {
 
   return (
     <>
-      <Header>
-        <Back>
-          <div onClick={onClickBack}>
-            <img src={back} alt="back" />
-          </div>
-        </Back>
-      </Header>
       {spotDetail && (
         <Spot
-          key={spotDetail.spotId}
-          spotId={spotDetail.spotId}
-          spotImage={spotDetail.spotImage}
-          spotName={spotDetail.spotName}
-          spotCategory={spotDetail.spotCategory}
-          spotReviewNum={spotDetail.spotReviewNum}
-          spotGrade={spotDetail.spotGrade}
-          spotAddress={spotDetail.spotAddress}
-          spotContact={spotDetail.spotContact}
-          spotLink={spotDetail.spotLink}
+          key={spotDetail.restaurant_id}
+          spotId={spotDetail.restaurant_id}
+          spotImage={spotDetail.image}
+          spotName={spotDetail.restaurant_name}
+          spotCategory={spotDetail.category}
+          spotReviewNum={spotDetail.review_count}
+          spotGrade={spotDetail.avg_grade}
+          spotAddress={spotDetail.address}
+          spotContact={spotDetail.phone_number}
+          spotLink={spotDetail.link}
         />
       )}
     </>

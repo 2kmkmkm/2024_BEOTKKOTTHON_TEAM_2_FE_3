@@ -15,7 +15,7 @@
 }
 
 .spotinfo1 {
-    padding: 20px 30px 20px 30px;
+    padding: 20px 30px 15px 30px;
 }
 
 .categoryname {
@@ -34,8 +34,8 @@
 }
 
 .grade {
+    
     display: flex;
-    margin: 0;
 }
 
 .catfoot {
@@ -64,7 +64,7 @@
 
 .gap1 {
     background-color: #D3D3D3;
-    height: 4px;
+    height: 2.5px;
     width: 100%;
 }
 
@@ -212,12 +212,12 @@ tr, td {
     color: #FE6A38;
 }
 
-.opening{
+.opening {
     margin-left: auto;
     margin-right: 20px;
 }
 
-.off{
+.off {
     margin-top: 5px;
     text-align: center;
     align-items: center;
@@ -293,4 +293,24 @@ h2 {
     background-color: #FE6A38;
     font-family: "Pretendard-Medium";
     height: 30px;
+}
+
+.detail {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    margin-left: 20px;
+    padding-top: 15px;
+}
+
+.linkDetail {
+    font-size: 14px;
+    color: #57AEFF;
+    text-decoration: none;
+}
+
+.catfoot_img {
+    width: 30px;
+    margin-right: 2px;
 }
