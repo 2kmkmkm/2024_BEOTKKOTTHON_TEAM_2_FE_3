@@ -294,3 +294,18 @@ h2 {
     font-family: "Pretendard-Medium";
     height: 30px;
 }
+
+.detail {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    margin-left: 20px;
+    padding-top: 15px;
+}
+
+.linkDetail {
+    font-size: 14px;
+    color: #57AEFF;
+    text-decoration: none;
+}

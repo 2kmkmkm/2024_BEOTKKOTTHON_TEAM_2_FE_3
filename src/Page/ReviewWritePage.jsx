@@ -60,7 +60,7 @@ const Catfoot = () => {
             key={index}
             src={score[index] ? catfoot_on : catfoot_off} // 별의 활성화 여부에 따라 이미지 변경
             onClick={() => handleScore(index)} // 클릭 시 해당 별까지의 점수 설정
-            alt={`star-${index + 1}`}
+            alt="catfoot"
           />
         ))}
         <div className={styles.grade2}>

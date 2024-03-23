@@ -145,7 +145,7 @@ const Category = () => {
                 onClick={() => handleCategoryClick("한식")}
               >
                 <CategoryImage>
-                  <img width="40px" src={korean} alt="korean" />
+                  <img width="35px" src={korean} alt="korean" />
                 </CategoryImage>
                 <div>한식</div>
               </div>
