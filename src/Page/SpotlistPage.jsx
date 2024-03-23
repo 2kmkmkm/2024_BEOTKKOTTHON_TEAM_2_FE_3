@@ -118,13 +118,13 @@ const SpotlistPage = () => {
     };
 
     const [spots, setSpots] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
 
     const handleSubmit = (e) => {
       e.preventDefault();
       const filteredSpots = spots.filter((spot) => {
-        return spot.spotName.toLowerCase().includes(search.toLowerCase());
+        return spot.restaurant_name
+          .toLowerCase()
+          .includes(search.toLowerCase());
       });
       setSpots(filteredSpots);
     };
@@ -133,16 +133,13 @@ const SpotlistPage = () => {
     useEffect(() => {
       const fetchSpots = async () => {
         try {
-          setError(null);
-          setLoading(true);
           const response = await axios.get(
             `http://43.202.65.80:3000/api/restaurant`
           );
           setSpots(response.data);
         } catch (e) {
-          setError(e);
+          console.log(e);
         }
-        setLoading(false);
       };
       fetchSpots();
     }, []);
@@ -158,14 +155,6 @@ const SpotlistPage = () => {
           onChange={onChange}
           placeholder="음식점을 입력해주세요"
         />
-        {/* 맛집 목록 출력 */}
-        {loading ? (
-          <div>Loading...</div>
-        ) : error ? (
-          <div>Error: {error}</div>
-        ) : (
-          <ul></ul>
-        )}
       </div>
     );
   };
@@ -176,13 +165,19 @@ const SpotlistPage = () => {
 
     useEffect(() => {
       const fetchSpots = async () => {
+        let response;
         try {
-          const response = await axios.get(
-            `http://43.202.65.80:3000/api/restaurant/category/${category}`
-          );
+          if (category === "전체") {
+            response = await axios.get(
+              `http://43.202.65.80:3000/api/restaurant`
+            );
+          } else {
+            response = await axios.get(
+              `http://43.202.65.80:3000/api/restaurant/category/${category}`
+            );
+          }
           console.log(response.data.body);
           setSpotList(response.data.body);
-          console.log(response);
         } catch (e) {
           console.log(e);
         }

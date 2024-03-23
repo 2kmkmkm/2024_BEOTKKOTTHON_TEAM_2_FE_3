@@ -219,9 +219,6 @@ const MainPage = () => {
   const navigate = useNavigate();
   const SearchBar = () => {
     const [search, setSearch] = useState("");
-    const [spots, setSpots] = useState([]);
-    const [loading, setLoading] = useState(false);
-
     const onChange = (e) => {
       setSearch(e.target.value);
     };

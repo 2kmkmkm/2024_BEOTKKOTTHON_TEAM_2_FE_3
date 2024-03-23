@@ -77,3 +77,7 @@ input::-webkit-input-placeholder {
 .list {
     text-decoration: none;
 }
+
+.link {
+    text-decoration: none;
+}
