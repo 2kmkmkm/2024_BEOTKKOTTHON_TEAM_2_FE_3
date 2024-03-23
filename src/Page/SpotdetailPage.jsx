@@ -316,21 +316,6 @@ const Spot = ({
     );
   };
 
-  const Detail = () => {
-    return (
-      <>
-        <div className={styles.detail}>
-          <Link
-            className={styles.linkDetail}
-            to={`https://www.example.com/restaurant1`}
-          >
-            {spotLink}
-          </Link>
-        </div>
-      </>
-    );
-  };
-
   return (
     <>
       <div>
@@ -343,7 +328,6 @@ const Spot = ({
           <div className={styles.gap2} />
           <Contact />
           <div className={styles.gap2} />
-          <Detail />
         </div>
       </div>
     </>
