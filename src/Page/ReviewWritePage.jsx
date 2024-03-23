@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import styles from "../css/reviewwritepage.module.css";
@@ -33,9 +33,26 @@ const Spot = styled.div`
 `;
 
 const SpotName = () => {
+  const { spotId } = useParams();
+  const [spotDetail, setSpotDetail] = useState({});
+
+  useEffect(() => {
+    const fetchSpotDetail = async () => {
+      try {
+        const response = await axios.get(
+          `http://43.202.65.80:3000/api/restaurant/details/${spotId}`
+        );
+        setSpotDetail(response.data.body);
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchSpotDetail();
+  }, [spotId]);
   return (
     <>
-      <Spot>뭉게뭉게 구름</Spot>
+      <Spot>{spotDetail.restaurant_id}</Spot>
     </>
   );
 };

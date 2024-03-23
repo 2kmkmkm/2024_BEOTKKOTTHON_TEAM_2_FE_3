@@ -77,6 +77,8 @@ const Spot = ({
       }
       if (filledCount >= 5) {
         color = [true, true, true, true, true];
+      } else {
+        color = [false, false, false, false, false];
       }
 
       console.log(color);
@@ -111,7 +113,7 @@ const Spot = ({
     return (
       <>
         <SpotImage>
-          <img src={spotImage} alt="spotimage" />
+          <img src={spotImage} />
           <Header>
             <Back>
               <div onClick={onClickBack}>
