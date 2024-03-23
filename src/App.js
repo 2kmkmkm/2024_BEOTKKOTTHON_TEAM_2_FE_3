@@ -12,9 +12,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/spotlist" element={<SpotlistPage />} />
-        <Route path="/spotdetail" element={<SpotdetailPage />} />
-        <Route path="/review" element={<ReviewPage />} />
+        <Route path="/spotlist/:category" element={<SpotlistPage />} />
+        <Route path="/spotdetail/:spotId" element={<SpotdetailPage />} />
+        <Route
+          path="/review/:spotId/:selectStandard/:sortBy"
+          element={<ReviewPage />}
+        />
         <Route path="/reviewwrite" element={<ReviewWritePage />} />
       </Routes>
     </BrowserRouter>

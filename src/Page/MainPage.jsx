@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo_mukat from "../Img/logo_mukat.svg";
 import styled from "styled-components";
 import "../css/mainpage.css";
@@ -15,10 +15,13 @@ import western from "../Img/양식.svg";
 import japanese from "../Img/일식.svg";
 import bunsik from "../Img/분식.svg";
 import etc from "../Img/기타.svg";
+import axios from "axios";
+import { useNavigate, useParams, useHistory } from "react-router-dom";
 
 const Logo = styled.a`
   padding: 10px;
   margin-right: auto;
+  margin-left: 10px;
 `;
 
 const Header = styled.div`
@@ -85,91 +88,124 @@ const CategoryImage = styled.div`
 `;
 
 const Category = () => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category) => {
+    navigate(`/spotlist/${category}`);
+  };
+
   return (
     <>
       <table className="category">
         <tbody>
           <tr>
             <td height="20px">
-              <Link className="categorybutton" to="/spotlist">
+              <div
+                className="categorybutton"
+                onClick={() => handleCategoryClick("전체")}
+              >
                 <CategoryImage>
                   <img width="45px" src={all} alt="all" />
                 </CategoryImage>
                 <div>전체</div>
-              </Link>
+              </div>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <div
+                className="categorybutton"
+                onClick={() => handleCategoryClick("술집")}
+              >
                 <CategoryImage>
                   <img width="35px" src={bar} alt="bar" />
                 </CategoryImage>
                 <div>술집</div>
-              </Link>
+              </div>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <div
+                className="categorybutton"
+                onClick={() => handleCategoryClick("카페&디저트")}
+              >
                 <CategoryImage>
                   <img
                     width="40px"
                     style={{ marginLeft: "2px" }}
                     src={cafe_dessert}
-                    alt="cafe/dessert"
+                    alt="cafe_dessert"
                   />
                 </CategoryImage>
-              </Link>
-              <div>카페/디저트</div>
+                <div>카페&디저트</div>
+              </div>
             </td>
           </tr>
           <tr>
             <td height="20px">
-              <Link className="categorybutton" to="/spotlist">
+              <div
+                className="categorybutton"
+                onClick={() => handleCategoryClick("한식")}
+              >
                 <CategoryImage>
                   <img width="40px" src={korean} alt="korean" />
                 </CategoryImage>
-              </Link>
-              <div>한식</div>
+                <div>한식</div>
+              </div>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <div
+                className="categorybutton"
+                onClick={() => handleCategoryClick("중식")}
+              >
                 <CategoryImage>
                   <img width="100px" src={chinese} alt="chinese" />
                 </CategoryImage>
-              </Link>
-              <div>중식</div>
+                <div>중식</div>
+              </div>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <div
+                className="categorybutton"
+                onClick={() => handleCategoryClick("양식")}
+              >
                 <CategoryImage>
                   <img width="40px" src={western} alt="western" />
                 </CategoryImage>
-              </Link>
-              <div>양식</div>
+                <div>양식</div>
+              </div>
             </td>
           </tr>
           <tr>
             <td height="20px">
-              <Link className="categorybutton" to="/spotlist">
+              <div
+                className="categorybutton"
+                onClick={() => handleCategoryClick("일식")}
+              >
                 <CategoryImage>
                   <img width="40px" src={japanese} alt="japanese" />
                 </CategoryImage>
-              </Link>
-              <div>일식</div>
+                <div>일식</div>
+              </div>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <div
+                className="categorybutton"
+                onClick={() => handleCategoryClick("분식")}
+              >
                 <CategoryImage>
                   <img width="20px" src={bunsik} alt="bunsik" />
                 </CategoryImage>
-              </Link>
-              <div>분식</div>
+                <div>분식</div>
+              </div>
             </td>
             <td>
-              <Link className="categorybutton" to="/spotlist">
+              <div
+                className="categorybutton"
+                onClick={() => handleCategoryClick("기타")}
+              >
                 <CategoryImage>
                   <img width="45px" src={etc} alt="etc" />
                 </CategoryImage>
-              </Link>
-              <div>기타</div>
+                <div>기타</div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -185,18 +221,38 @@ const MainPage = () => {
       setSearch(e.target.value);
     };
 
-    /*
-    const spot = ["뭉게뭉게 구름"];
-    // 검색어와 같은 값만 걸러내기
-    const filterTitle = spot.filter((p) => {
-      return p.title
-        .replace(" ", "")
-        .toLocalLowerCase()
-        .includes(search.toLocaleLowerCase());
-    });
-    */
+    const [spots, setSpots] = useState();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    // 검색 버튼 클릭 시
+    useEffect(() => {
+      const fetchUsers = async () => {
+        try {
+          // 요청이 시작 할 때에는 error 와 users 를 초기화하고
+          setError(null);
+          // loading 상태를 true 로 바꿉니다.
+          setLoading(true);
+          const response = await axios.get(
+            `http://43.203.208.221:8079/api/restaurant/${search}`
+          );
+          console.log(response);
+          setSpots(response.data); // 데이터는 response.data 안에 들어있습니다.
+        } catch (e) {
+          setError(e);
+        }
+        setLoading(false);
+      };
+
+      fetchUsers();
+    }, []);
+
+    // 검색어와 일치하는 맛집만 필터링
+    const filteredSpots = spots
+      ? spots.filter((spot) => {
+          return spot.title.toLowerCase().includes(search.toLowerCase());
+        })
+      : [];
+
     const handleSubmit = (e) => {
       e.preventDefault();
     };
@@ -209,7 +265,19 @@ const MainPage = () => {
           value={search}
           onChange={onChange}
           placeholder="음식점을 입력해주세요"
-        ></input>
+        />
+        {/* 맛집 목록 출력 */}
+        {loading ? (
+          <div>Loading...</div>
+        ) : error ? (
+          <div></div>
+        ) : (
+          <ul>
+            {filteredSpots.map((spot, index) => (
+              <li key={index}>{spot.title}</li>
+            ))}
+          </ul>
+        )}
       </div>
     );
   };
@@ -230,7 +298,7 @@ const MainPage = () => {
           <Univ>
             <img width="50px" src={mukat} alt="mukat" />
             <img width="100px" src={logo_mukatlist} alt="logo_mukatlist" />
-            <UnivName>구름대학교</UnivName>
+            <UnivName>구름대학교</UnivName> {/* api */}
           </Univ>
         </Wrapper>
         <Category />
