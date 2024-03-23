@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useDispatch } from "react";
 import styled from "styled-components";
 import back from "../Img/back.svg";
 import point from "../Img/point.svg";
 import location from "../Img/location_white.svg";
 import catfoot from "../Img/catfoot.svg";
-import { BrowserRouter as Router, Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import styles from "../css/spotlistpage.module.css";
 import "../font/font.css";
+import axios from "axios";
 
 const Header = styled.div`
   width: 100%;
@@ -37,107 +38,116 @@ const Point = styled.a`
 `;
 
 const Wrapper = styled.div`
-  width: calc(100%-30px);
+  width: calc(100% - 30px);
   margin: 15px;
   align-items: center;
   justify-content: center;
 `;
 
-const SpotImage = styled.div`
+const SpotImage = styled.img`
   width: 100%;
   border-radius: 1.5rem;
   border: 1px solid black;
   height: 110px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-image: url("https://muckatlist.s3.ap-northeast-2.amazonaws.com/3a818899-2f88-4271-870c-421167f6c53f");
 `;
 
-const Location = () => {
-  return (
-    <>
-      <div className={styles.location}>
-        <img src={location} width="10px" alt="location"></img>
-        <div style={{ padding: "3px" }}>800m</div>
-      </div>
-    </>
-  );
-};
-
-const SpotInfo = () => {
-  return (
-    <>
-      <div className={styles.spotinfo}>
-        <div className={styles.spotname}>뭉게뭉게 구름</div>
-        <div className={styles.address}>서울특별시 구름구 미르미동 123-2</div>
-        <div className={styles.review}>
-          <img
-            src={catfoot}
-            style={{ paddingTop: "1px" }}
-            alt="catfoot"
-            width="20px"
-          />
-          <div className={styles.grade}>5.0</div>
+// 각 맛집 정보
+const SpotInfo = ({ spotId, spotImage, spotName, spotAddress, spotGrade }) => {
+  // 해당 맛집 이미지
+  const SpotImageDiv = () => {
+    return (
+      <>
+        <div className={styles.spotlist}>
+          <SpotImage>
+            {/* <img
+              // src={
+              //   "https://muckatlist.s3.ap-northeast-2.amazonaws.com/3a818899-2f88-4271-870c-421167f6c53f"
+              // }
+              alt="spotImage"
+            /> */}
+          </SpotImage>
         </div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  };
 
-/* const SpotlistItem = ({ spotId, spotName, spotAddress, spotDistance }) => {
-  return (
-    <Link to={`/spotdetail/${spotId}`} className="spotlistitem-link">
-      <div className="spotlistitem">
-        <SpotImage>
-          <img
-            src={spotimage}
-            alt="spotimage"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        </SpotImage>
-        <SpotInfo
-          spotName={spotName}
-          spotAddress={spotAddress}
-          spotDistance={spotDistance}
-        />
-      </div>
-    </Link>
-  );
-}; */
+  // 해당 맛집 정보
+  const SpotDetailDiv = () => {
+    return (
+      <>
+        <div className={styles.spotinfo}>
+          <div className={styles.spotname}>{spotName}</div>
+          <div className={styles.address}>{spotAddress}</div>
+          <div className={styles.review}>
+            <img
+              src={catfoot}
+              style={{ paddingTop: "1px" }}
+              alt="catfoot"
+              width="20px"
+            />
+            <div className={styles.grade}>{spotGrade}</div>
+          </div>
+        </div>
+      </>
+    );
+  };
 
-const Spotlist = () => {
   return (
     <>
-      <div className={styles.spotlist}>
-        <SpotImage>
-          <Location>800m</Location>
-        </SpotImage>
-        <SpotInfo />
-      </div>
+      <Link className={styles.list} to={`/spotdetail/${spotId}`}>
+        <SpotImageDiv />
+        <SpotDetailDiv />
+      </Link>
     </>
   );
 };
 
 const SpotlistPage = () => {
+  const { category } = useParams();
+
+  // 카테고리별 검색
   const SearchBar = () => {
     const [search, setSearch] = useState("");
     const onChange = (e) => {
       setSearch(e.target.value);
     };
 
-    /*
-        const spot = ["뭉게뭉게 구름"];
-        // 검색어와 같은 값만 걸러내기
-        const filterTitle = spot.filter((p) => {
-          return p.title
-            .replace(" ", "")
-            .toLocalLowerCase()
-            .includes(search.toLocaleLowerCase());
-        });
-        */
+    const [spots, setSpots] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    // 검색 버튼 클릭 시
     const handleSubmit = (e) => {
       e.preventDefault();
+      const filteredSpots = spots.filter((spot) => {
+        return spot.spotName.toLowerCase().includes(search.toLowerCase());
+      });
+      setSpots(filteredSpots);
     };
+
+    // 해당 카테고리 맛집 API 받아와서 검색
+    useEffect(() => {
+      const fetchSpots = async () => {
+        try {
+          setError(null);
+          setLoading(true);
+          const response = await axios.get(
+            `http://43.202.65.80:3000/api/restaurant`
+          );
+          setSpots(response.data);
+        } catch (e) {
+          setError(e);
+        }
+        setLoading(false);
+      };
+      fetchSpots();
+    }, []);
+
+    // 검색어와 일치하는 맛집만 필터링
 
     return (
       <div onSubmit={handleSubmit}>
@@ -147,45 +157,77 @@ const SpotlistPage = () => {
           value={search}
           onChange={onChange}
           placeholder="음식점을 입력해주세요"
-        ></input>
+        />
+        {/* 맛집 목록 출력 */}
+        {loading ? (
+          <div>Loading...</div>
+        ) : error ? (
+          <div>Error: {error}</div>
+        ) : (
+          <ul></ul>
+        )}
       </div>
     );
   };
 
-  const categories = [
-    { id: "all", name: "전체" },
-    { id: "bar", name: "술집" },
-    { id: "cafe_dessert", name: "카페/디저트" },
-    { id: "korean", name: "한식" },
-    { id: "chinese", name: "중식" },
-    { id: "western", name: "양식" },
-    { id: "japanese", name: "일식" },
-    { id: "bunsik", name: "분식" },
-    { id: "etc", name: "기타" },
-  ];
+  const SpotlistItem = () => {
+    const { category } = useParams();
+    const [spotList, setSpotList] = useState([]);
 
-  const { categoryId } = useParams();
-  const categoryName = categories.find(
-    (category) => category.id === categoryId
-  )?.name;
+    useEffect(() => {
+      const fetchSpots = async () => {
+        try {
+          const response = await axios.get(
+            `http://43.202.65.80:3000/api/restaurant/category/${category}`
+          );
+          console.log(response.data.body);
+          setSpotList(response.data.body);
+          console.log(response);
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      fetchSpots();
+    }, [category]);
+
+    return (
+      <>
+        {spotList &&
+          spotList.map((spot) => (
+            <SpotInfo
+              key={spot.restaurant_id}
+              spotId={spot.restaurant_id}
+              spotImage={spot.spotImage}
+              spotName={spot.restaurant_name}
+              spotAddress={spot.address}
+              spotGrade={spot.avg_grade}
+            />
+          ))}
+      </>
+    );
+  };
+
+  const navigate = useNavigate();
+  const onClickBack = () => {
+    return navigate(-1);
+  };
+
   return (
     <>
       <Header>
         <Back>
-          <Link to="/">
+          <div onClick={onClickBack}>
             <img src={back} alt="back" />
-          </Link>
+          </div>
         </Back>
-        <CategoryName>{categoryName}</CategoryName>
+        <CategoryName>{category}</CategoryName>
         <Point>
           <img src={point} width="25px" alt="point" />
         </Point>
       </Header>
       <SearchBar />
       <Wrapper>
-        <Link className={styles.link} to="/spotdetail">
-          <Spotlist />
-        </Link>
+        <SpotlistItem />
       </Wrapper>
     </>
   );

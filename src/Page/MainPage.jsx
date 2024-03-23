@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo_mukat from "../Img/logo_mukat.svg";
 import styled from "styled-components";
 import "../css/mainpage.css";
@@ -90,8 +90,8 @@ const CategoryImage = styled.div`
 const Category = () => {
   const navigate = useNavigate();
 
-  const handleCategoryClick = (categoryId) => {
-    navigate(`/spotlist/${categoryId}`);
+  const handleCategoryClick = (category) => {
+    navigate(`/spotlist/${category}`);
   };
 
   return (
@@ -102,7 +102,7 @@ const Category = () => {
             <td height="20px">
               <div
                 className="categorybutton"
-                onClick={() => handleCategoryClick("all")}
+                onClick={() => handleCategoryClick("전체")}
               >
                 <CategoryImage>
                   <img width="45px" src={all} alt="all" />
@@ -113,7 +113,7 @@ const Category = () => {
             <td>
               <div
                 className="categorybutton"
-                onClick={() => handleCategoryClick("bar")}
+                onClick={() => handleCategoryClick("술집")}
               >
                 <CategoryImage>
                   <img width="35px" src={bar} alt="bar" />
@@ -124,7 +124,7 @@ const Category = () => {
             <td>
               <div
                 className="categorybutton"
-                onClick={() => handleCategoryClick("cafe_dessert")}
+                onClick={() => handleCategoryClick("카페&디저트")}
               >
                 <CategoryImage>
                   <img
@@ -134,7 +134,7 @@ const Category = () => {
                     alt="cafe_dessert"
                   />
                 </CategoryImage>
-                <div>카페/디저트</div>
+                <div>카페&디저트</div>
               </div>
             </td>
           </tr>
@@ -142,7 +142,7 @@ const Category = () => {
             <td height="20px">
               <div
                 className="categorybutton"
-                onClick={() => handleCategoryClick("korean")}
+                onClick={() => handleCategoryClick("한식")}
               >
                 <CategoryImage>
                   <img width="40px" src={korean} alt="korean" />
@@ -153,7 +153,7 @@ const Category = () => {
             <td>
               <div
                 className="categorybutton"
-                onClick={() => handleCategoryClick("chinese")}
+                onClick={() => handleCategoryClick("중식")}
               >
                 <CategoryImage>
                   <img width="100px" src={chinese} alt="chinese" />
@@ -164,7 +164,7 @@ const Category = () => {
             <td>
               <div
                 className="categorybutton"
-                onClick={() => handleCategoryClick("western")}
+                onClick={() => handleCategoryClick("양식")}
               >
                 <CategoryImage>
                   <img width="40px" src={western} alt="western" />
@@ -177,7 +177,7 @@ const Category = () => {
             <td height="20px">
               <div
                 className="categorybutton"
-                onClick={() => handleCategoryClick("japanese")}
+                onClick={() => handleCategoryClick("일식")}
               >
                 <CategoryImage>
                   <img width="40px" src={japanese} alt="japanese" />
@@ -188,7 +188,7 @@ const Category = () => {
             <td>
               <div
                 className="categorybutton"
-                onClick={() => handleCategoryClick("bunsik")}
+                onClick={() => handleCategoryClick("분식")}
               >
                 <CategoryImage>
                   <img width="20px" src={bunsik} alt="bunsik" />
@@ -199,7 +199,7 @@ const Category = () => {
             <td>
               <div
                 className="categorybutton"
-                onClick={() => handleCategoryClick("etc")}
+                onClick={() => handleCategoryClick("기타")}
               >
                 <CategoryImage>
                   <img width="45px" src={etc} alt="etc" />
@@ -221,18 +221,38 @@ const MainPage = () => {
       setSearch(e.target.value);
     };
 
-    /*
-    const spot = ["뭉게뭉게 구름"];
-    // 검색어와 같은 값만 걸러내기
-    const filterTitle = spot.filter((p) => {
-      return p.title
-        .replace(" ", "")
-        .toLocalLowerCase()
-        .includes(search.toLocaleLowerCase());
-    });
-    */
+    const [spots, setSpots] = useState();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    // 검색 버튼 클릭 시
+    useEffect(() => {
+      const fetchUsers = async () => {
+        try {
+          // 요청이 시작 할 때에는 error 와 users 를 초기화하고
+          setError(null);
+          // loading 상태를 true 로 바꿉니다.
+          setLoading(true);
+          const response = await axios.get(
+            `http://43.203.208.221:8079/api/restaurant/${search}`
+          );
+          console.log(response);
+          setSpots(response.data); // 데이터는 response.data 안에 들어있습니다.
+        } catch (e) {
+          setError(e);
+        }
+        setLoading(false);
+      };
+
+      fetchUsers();
+    }, []);
+
+    // 검색어와 일치하는 맛집만 필터링
+    const filteredSpots = spots
+      ? spots.filter((spot) => {
+          return spot.title.toLowerCase().includes(search.toLowerCase());
+        })
+      : [];
+
     const handleSubmit = (e) => {
       e.preventDefault();
     };
@@ -245,7 +265,19 @@ const MainPage = () => {
           value={search}
           onChange={onChange}
           placeholder="음식점을 입력해주세요"
-        ></input>
+        />
+        {/* 맛집 목록 출력 */}
+        {loading ? (
+          <div>Loading...</div>
+        ) : error ? (
+          <div></div>
+        ) : (
+          <ul>
+            {filteredSpots.map((spot, index) => (
+              <li key={index}>{spot.title}</li>
+            ))}
+          </ul>
+        )}
       </div>
     );
   };
@@ -266,7 +298,7 @@ const MainPage = () => {
           <Univ>
             <img width="50px" src={mukat} alt="mukat" />
             <img width="100px" src={logo_mukatlist} alt="logo_mukatlist" />
-            <UnivName>구름대학교</UnivName>
+            <UnivName>구름대학교</UnivName> {/* api */}
           </Univ>
         </Wrapper>
         <Category />

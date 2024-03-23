@@ -36,6 +36,7 @@ input::-webkit-input-placeholder {
     font-size: 15px;
     padding-left: 5px;
     color: black;
+    text-decoration: none;
 }
 
 .address {
@@ -55,10 +56,11 @@ input::-webkit-input-placeholder {
     width: 100%;
     display: flex;
     margin-top: 10px;
+    margin-bottom: 10px;
     align-items: center;
     justify-content: center;
     position: relative;
-
+    text-decoration: none;
 }
 
 .review {
@@ -69,8 +71,9 @@ input::-webkit-input-placeholder {
 
 .spotlist {
     margin-bottom: 10px;
+
 }
 
-.link {
+.list {
     text-decoration: none;
 }
