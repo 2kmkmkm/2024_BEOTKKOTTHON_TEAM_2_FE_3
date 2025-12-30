@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# Mukatlist 🍽️  
+대학가 숨은 맛집을 함께 관리하는 모바일 하이브리드 앱
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 구름톤 유니브 해커톤 프로젝트  
+> React-Native + React WebView 기반 Android 하이브리드 앱
 
-## Available Scripts
 
-In the project directory, you can run:
+## 📌 Overview
+Mukatlist는 **대학 근처 숨은 맛집 정보를 관리하고 공유**할 수 있는 모바일 하이브리드 앱입니다.  
+개인 단위의 맛집 저장을 넘어, **동아리·모임 단위로 함께 관리할 수 있는 ‘먹킷리스트’** 개념을 도입해  
+대학 생활 속 실제 사용 시나리오를 중심으로 기획되었습니다.
 
-### `npm start`
+본 프로젝트는 **첫 해커톤(구름톤 유니브)**에서  
+**기획 → 디자인 → 개발 → 패키징까지 2주 만에 완성**한 프로젝트로,  
+짧은 시간 안에 아이디어를 구현하고 팀 단위로 빠르게 실행하는 경험에 초점을 두었습니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 👥 Team
+- 총 6명
+  - 기획 1명
+  - 디자인 1명
+  - 프론트엔드 2명
+  - 백엔드 2명
+    
 
-### `npm test`
+## 🧑‍💻 My Role
+- 프론트엔드 개발 담당
+- React, JavaScript, Styled-Components를 활용한 **UI 구현**
+- 맛집 검색 및 저장 기능 구현
+- `react-calendar` 커스터마이징을 통한 **방문 일정 등록 UI 개선**
+- React 기반 웹을 React-Native Android 앱에 **WebView로 연동**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## 🛠 Tech Stack
+### Frontend
+- **React**: SPA 구성
+- **React-Native**: Android 하이브리드 앱
+- **JavaScript**
+- **Styled-Components**: 컴포넌트 단위 스타일링
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Hybrid App
+- **Android Studio**: WebView 기반 앱 패키징
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Build & Collaboration
+- **Vite**: 빠른 개발 환경 구성
+- **GitHub**: 코드 공유 및 협업
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## ✨ Key Features
+- **로그인 및 회원가입**
+  - 사용자 인증 기능 제공
+  - 개인화된 먹킷리스트 및 방문 이력 관리
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **학교 선택 기반 맛집 리스트**
+  - 회원가입 시 선택한 대학교 기준으로 맛집 자동 매칭
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **먹킷리스트**
+  - 개강/종강 모임, 동아리 모임 등 **상황별 맛집 그룹 관리**
+  - 사용자가 원하는 주제에 맞게 맛집 추가 가능
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **그룹 먹킷리스트**
+  - 주제별 리스트에 사용자 초대
+  - 동아리·팀 단위 공동 관리 가능
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **방문 일정 등록**
+  - `react-calendar`를 활용한 일정 등록
+  - 캘린더 UI로 다가오는 방문 일정 시각화
 
-## Learn More
+- **맛집 보관함**
+  - 방문 완료한 맛집 저장
+  - 방문 리뷰 작성 가능
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🔍 What I Focused On
+- **하이브리드 앱 구조 이해**
+  - React 웹을 React-Native WebView로 연결하며  
+    모바일 하이브리드 앱 구조를 실습적으로 경험
+- **사용자 중심 정보 설계**
+  - 단순 리스트가 아닌,  
+    *모임·상황 중심*으로 맛집을 관리할 수 있도록 UX 흐름 설계
+- **빠른 실행과 협업**
+  - 제한된 시간 안에서 우선순위를 정하고  
+    팀원 간 역할 분담을 통해 기능 완성도 확보
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🌱 What I Learned
+- 첫 해커톤 경험을 통해 **아이디어를 빠르게 구체화하고 구현하는 능력**을 기를 수 있었음
+- React-Native + WebView 구조를 직접 적용하며  
+  **하이브리드 앱 개발 방식에 대한 이해도 향상**
+- 기획자·디자이너·개발자 간 협업 과정에서  
+  **커뮤니케이션의 중요성과 문제 해결 역량**을 체감
+- 사용자 입장에서 정보를 어떻게 구조화해야 하는지에 대한  
+  **UI/UX 관점의 확장**
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🚀 Improvements
+- 일정 부족으로 **배포까지 진행하지 못한 점**이 가장 큰 아쉬움
+- 전역 상태 관리 구조 개선 필요성 인지
+- 공통 컴포넌트 정리 및 코드 리팩토링 필요
